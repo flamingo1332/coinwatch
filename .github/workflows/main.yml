@@ -1,0 +1,51 @@
+# name: workflow
+
+# on:
+#   push:
+#     branches:
+#       - main 
+#   pull_request:
+#     branches:
+#       - main
+
+
+# env:
+#   TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#   TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
+
+# jobs:
+#   terraform:
+#     name: 'Terraform'
+#     runs-on: ubuntu-latest
+#     # environment: production
+
+#     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+#     # defaults:
+#     #   run:
+#     #     shell: bash
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
+
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v2
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+#     - name: Set up Terraform
+#       uses: hashicorp/setup-terraform@v2
+    
+#     - name: Terraform Init
+#       run: terraform init
+
+#     - name: Validate Terraform
+#       run: terraform validate
+
+#     - name: Terraform Plan
+#       run: terraform plan
+
+#     - name: Terraform Apply
+#       run: terraform apply -auto-approve
