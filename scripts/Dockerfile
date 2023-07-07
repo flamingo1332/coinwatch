@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY lambda_function_data.py .
 
-COPY requirements1.txt .
+COPY requirements.txt .
 
-RUN pip install -r requirements1.txt
+RUN pip install -r requirements.txt
 
 CMD ["python", "lambda_function_data.py"]
 
