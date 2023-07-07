@@ -2,7 +2,7 @@
 resource "aws_ecr_repository" "repository" {
   name = "coinwatch-repo"
 }
-# arn:aws:ecr:ap-northeast-1:164634153529:repository/coinwatch-repo
+
 resource "aws_lambda_function" "lambda_data" {
   function_name = var.lambda_visitor_name
   # runtime       = "python3.10"
@@ -10,7 +10,7 @@ resource "aws_lambda_function" "lambda_data" {
   role          = var.iam_role_lambda_arn
   image_uri     = "${aws_ecr_repository.repository.repository_url}:latest"
   package_type  = "Image"
-
+  timeout       = 30
   environment {
     variables = {
       TABLE_NAME = var.price_table_name
