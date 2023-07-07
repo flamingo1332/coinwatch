@@ -1,51 +1,68 @@
-# name: workflow
+name: main
 
-# on:
-#   push:
-#     branches:
-#       - main 
-#   pull_request:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - master
 
 
-# env:
-#   TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#   TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+env:
+  TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   
 
-# jobs:
-#   terraform:
-#     name: 'Terraform'
-#     runs-on: ubuntu-latest
-#     # environment: production
+jobs:
+  deploy:
+    name: 'deploy'
+    runs-on: ubuntu-latest
 
-#     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-#     # defaults:
-#     #   run:
-#     #     shell: bash
+    steps:
+      # checkout
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v3
+      # terraform
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
 
-#     - name: Configure AWS credentials
-#       uses: aws-actions/configure-aws-credentials@v2
-#       with:
-#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # aws credential
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
     
-#     - name: Set up Terraform
-#       uses: hashicorp/setup-terraform@v2
-    
-#     - name: Terraform Init
-#       run: terraform init
+        # ecr login
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
-#     - name: Validate Terraform
-#       run: terraform validate
+        # docker build /push to ecr repo
+    - name: Build and push the tagged docker image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+        IMAGE_TAG: latest
+      run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f scripts/Dockerfile ./scripts
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
 
-#     - name: Terraform Plan
-#       run: terraform plan
+        # zip script file for lambda
+    - name: Zip lambda_function_publish.py
+      run: |
+          cd scripts
+          zip lambda_function_publish.zip lambda_function_publish.py
 
-#     - name: Terraform Apply
-#       run: terraform apply -auto-approve
+        # terraform apply
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Validate Terraform
+      run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve

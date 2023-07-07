@@ -41,6 +41,7 @@ module "lambda" {
   sns_topic_arn          = module.sns_topic.sns_topic_arn
   iam_role_lambda_arn    = module.iam.iam_role_lambda_arn
   price_table_name       = module.dynamodb.price_table_name
+  change_rate_table_arn  = module.dynamodb.change_rate_table_arn
   change_rate_table_name = module.dynamodb.change_rate_table_name
   cloudwatch_event_rule  = module.eventbridge.cloudwatch_event_rule
 }

@@ -7,6 +7,9 @@ variable "iam_role_lambda_arn" {
 variable "price_table_name" {
   type = string
 }
+variable "change_rate_table_arn" {
+  type = string
+}
 variable "change_rate_table_name" {
   type = string
 }
