@@ -1,2 +1,2 @@
-boto3==1.26.93
-pycoingecko==3.1.0
+boto3
+pycoingecko
