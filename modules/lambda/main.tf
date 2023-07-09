@@ -27,7 +27,15 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
   source_arn    = var.cloudwatch_event_rule
 }
 
+resource "aws_lambda_function_event_invoke_config" "example" {
+  function_name = aws_lambda_function.lambda_data.function_name
 
+  destination_config {
+    on_success {
+      destination = aws_lambda_function.lambda_publish.arn
+    }
+  }
+}
 
 
 resource "aws_lambda_function" "lambda_publish" {
