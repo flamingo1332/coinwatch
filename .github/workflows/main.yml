@@ -37,6 +37,8 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      if: ${{ github.event_name == 'push' && (contains(github.event.head_commit.modified, 'scripts/lambda_function_data.py') || contains(github.event.head_commit.modified, 'scripts/lambda_function_publish.py')) }}
+
 
         # docker build /push to ecr repo
     - name: Build and push the tagged docker image to Amazon ECR
@@ -47,6 +49,8 @@ jobs:
       run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f scripts/Dockerfile ./scripts
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
+      if: ${{ github.event_name == 'push' && (contains(github.event.head_commit.modified, 'scripts/lambda_function_data.py') || contains(github.event.head_commit.modified, 'scripts/lambda_function_publish.py')) }}
+
 
         # zip script file for lambda
     - name: Zip lambda_function_publish.py
