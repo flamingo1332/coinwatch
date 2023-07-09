@@ -20,7 +20,7 @@ resource "aws_iam_role_policy" "lambda_role_policy" {
         "dynamodb:UpdateItem",
         "dynamodb:DeleteItem",
         "dynamodb:Scan",
-        "dynamodb:Query"
+        "dynamodb:Query",
         "dynamodb:BatchWriteItem"
       ],
       "Resource": "*"
