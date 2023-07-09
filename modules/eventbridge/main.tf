@@ -2,7 +2,7 @@ resource "aws_cloudwatch_event_rule" "lambda_invocation_15min" {
   name        = var.cloudwatch_event_rule_name
 
   schedule_expression = "rate(15 minutes)"
-  is_enabled = false
+  is_enabled = true
   
 #   defulat event bus
 }

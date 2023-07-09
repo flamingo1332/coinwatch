@@ -14,14 +14,7 @@ resource "aws_iam_role_policy" "lambda_role_policy" {
       "Effect": "Allow",
       "Action": [
         "lambda:InvokeFunction",
-        "sns:Publish",
-        "dynamodb:PutItem",
-        "dynamodb:GetItem",
-        "dynamodb:UpdateItem",
-        "dynamodb:DeleteItem",
-        "dynamodb:Scan",
-        "dynamodb:Query",
-        "dynamodb:BatchWriteItem"
+        "sns:Publish"
       ],
       "Resource": "*"
     }
@@ -29,10 +22,10 @@ resource "aws_iam_role_policy" "lambda_role_policy" {
 }
 EOF
 }
-# resource "aws_iam_role_policy_attachment" "dynamodb_policy_attachment" {
-#   role       = aws_iam_role.lambda_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
-# }
+resource "aws_iam_role_policy_attachment" "dynamodb_policy_attachment" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+}
 
 # resource "aws_iam_role_policy_attachment" "sns_policy_attachment" {
 #   role       = aws_iam_role.lambda_role.name
