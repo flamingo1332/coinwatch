@@ -6,5 +6,4 @@ variable "sns_topic_name" {
 variable "email" {
     type = string
     default = "ksw29555@gmail.com"
-  
 }

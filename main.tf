@@ -7,13 +7,13 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket         = "ksw29555-coinwatch-terraform-backend"
-    key            = "terraform/main.tfstate"
-    region         = "ap-northeast-1"
-    encrypt        = true
-    dynamodb_table = "coinwatch-terraform-backend-lock"
-  }
+  # backend "s3" {
+  #   bucket         = "ksw29555-coinwatch-terraform-backend"
+  #   key            = "terraform/main.tfstate"
+  #   region         = "ap-northeast-1"
+  #   encrypt        = true
+  #   dynamodb_table = "coinwatch-terraform-backend-lock"
+  # }
 }
 
 provider "aws" {
@@ -25,18 +25,28 @@ provider "aws" {
 
 module "backend" {
   source = "./modules/backend"
+
+  s3_bucket_name_terraform_backend     = "ksw29555-coinwatch-terraform-backend"
+  dynamodb_name_terraform_backend_lock = "coinwatch-terraform-backend-lock"
 }
 
 module "dynamodb" {
   source = "./modules/dynamodb"
+
+  price_table_name       = "cointwatch_price_table"
+  change_rate_table_name = "cointwatch_change_rate_table"
 }
+
 
 module "iam" {
   source = "./modules/iam"
+  
+  iam_lambda_role_name = "LambdaRoleForCoiwnatch"
 }
 
 module "lambda" {
   source = "./modules/lambda"
+
 
   sns_topic_arn          = module.sns_topic.sns_topic_arn
   iam_role_lambda_arn    = module.iam.iam_role_lambda_arn
