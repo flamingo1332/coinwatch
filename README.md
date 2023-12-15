@@ -1,5 +1,5 @@
 
-# Cointwatch
+# Coinwatch
 
 Automated Crypto price monitor
 
