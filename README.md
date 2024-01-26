@@ -25,6 +25,8 @@ This project not only served as a technical exercise in advanced cloud and softw
 
 
 ## Repo Structure
+
+```
 │   .gitignore
 │   main.tf
 │   README.md
@@ -70,7 +72,7 @@ This project not only served as a technical exercise in advanced cloud and softw
         lambda_function_data.py
         lambda_function_publish.py
         requirements.txt
-
+```
 
 ## Output
 ![Capture](https://github.com/flamingo1332/coinwatch/assets/100294322/9aa52bc8-373e-4135-ba0f-d8ff62002c91)
