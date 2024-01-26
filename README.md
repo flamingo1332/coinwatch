@@ -15,7 +15,8 @@ This project not only served as a technical exercise in advanced cloud and softw
 
 
 ## Architecture
-![Untitled Diagram drawio](https://github.com/flamingo1332/coinwatch/assets/100294322/9b0304f5-7db9-4f93-8b33-3b6e8ef19297)
+![Untitled Diagram drawio](https://github.com/flamingo1332/coinwatch/assets/100294322/5d789b2f-7d8d-497a-a2f6-e75c0f895eb2)
+
 
 1. Invoke lambda with cloudwatch alarm every 15m
 2. get crypto price data from CoingeckoAPI
