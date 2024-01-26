@@ -9,10 +9,7 @@ Utilizing AWS Lambda and CloudWatch, this application regularly fetches and anal
 
 ## Motivation
 
-It provided a good opportunity to develop skills in tools like terraform, github actions, and explore serverless architecture using AWS Lambda and DynamoDB. 
-
-This project not only served as a technical exercise in advanced cloud and software practices but also aimed to create a practical tool for real-time cryptocurrency market monitoring.
-
+The development of Coinwatch offered a valuable opportunity to enhance skills in serverless architecture with AWS Lambda and DynamoDB. It also provided hands-on experience with infrastructure automation and CI/CD using Terraform, GitHub Actions. This project served as a technical deep dive into modern cloud and software engineering methodologies.
 
 ## Architecture
 ![Untitled Diagram drawio](https://github.com/flamingo1332/coinwatch/assets/100294322/5d789b2f-7d8d-497a-a2f6-e75c0f895eb2)
