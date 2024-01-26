@@ -24,6 +24,54 @@ This project not only served as a technical exercise in advanced cloud and softw
 5. publish to sns topic
 
 
+## Repo Structure
+│   .gitignore
+│   main.tf
+│   README.md
+│   variables.tf
+│
+├───.github
+│   └───workflows
+│           main.yml
+│
+├───modules
+│   ├───backend
+│   │       main.tf
+│   │       outputs.tf
+│   │       variables.tf
+│   │
+│   ├───dynamodb
+│   │       main.tf
+│   │       outputs.tf
+│   │       variables.tf
+│   │
+│   ├───eventbridge
+│   │       main.tf
+│   │       outputs.tf
+│   │       variables.tf
+│   │
+│   ├───iam
+│   │       main.tf
+│   │       outputs.tf
+│   │       variables.tf
+│   │
+│   ├───lambda
+│   │       main.tf
+│   │       outputs.tf
+│   │       variables.tf
+│   │
+│   └───sns_topic
+│           main.tf
+│           outputs.tf
+│           variables.tf
+│
+└───scripts
+        Dockerfile
+        lambda_function_data.py
+        lambda_function_publish.py
+        requirements.txt
+
+
 ## Output
 ![Capture](https://github.com/flamingo1332/coinwatch/assets/100294322/9aa52bc8-373e-4135-ba0f-d8ff62002c91)
 
